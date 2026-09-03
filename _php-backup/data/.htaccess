@@ -1,0 +1,9 @@
+# Internal data only — generated SEO cache and form logs. Never served over HTTP.
+# PHP includes still read these files directly from disk.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

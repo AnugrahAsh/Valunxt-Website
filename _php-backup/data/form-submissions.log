@@ -1,0 +1,10 @@
+{"time":"2026-07-20T11:24:03+02:00","ip":"::1","form":"abc","fields":{"name":"Test User","email":"test@example.com","message":"Hello"}}
+{"time":"2026-07-20T11:25:36+02:00","ip":"::1","form":"7655e08","fields":{"name_contact_form":"Jane Tester","last_name_contact_form":"Test value","email_contact_form":"jane@example.com","phone_contact_form":"1234567890","message_contact_form":"This is an automated fidelity test message."}}
+{"time":"2026-07-29T08:49:43+02:00","ip":"::1","form":"7655e08","fields":{"contact_full_name":"Aisha Rahman","contact_email":"aisha@example.com","contact_phone":"+971501234567","contact_company":"Meridian Holdings"}}
+{"time":"2026-07-29T08:49:57+02:00","ip":"::1","form":"3b33bfe","fields":{"email":"newsletter@example.com"}}
+{"time":"2026-07-29T08:51:09+02:00","ip":"::1","form":"e67e0ee","fields":{"consult_full_name":"James Okoro","consult_email":"james@northgate.co","consult_phone":"+447911123456","consult_company":"Northgate Partners"}}
+{"time":"2026-07-29T08:54:48+02:00","ip":"::1","form":"7655e08","fields":{"contact_full_name":"Aisha Rahman","contact_email":"aisha@example.com","contact_phone":"+971501234567","contact_company":"Meridian"}}
+{"time":"2026-07-29T08:55:28+02:00","ip":"::1","form":"7655e08","fields":{"contact_full_name":"Priya Nair","contact_email":"priya@vantage.io","contact_phone":"+919820098200","contact_company":"Vantage Logistics"}}
+{"time":"2026-07-29T08:58:30+02:00","ip":"::1","form":"5099fe1","fields":{"home_full_name":"Rehman Shoaib","home_email":"admin@gmail.com","home_phone":"+918400438136","home_company":"Valunxt Capital"}}
+{"time":"2026-07-29T09:25:52+02:00","ip":"::1","form":"partnership","fields":{"partner_full_name":"Omar Al Farsi","partner_email":"omar@bridgestone-re.ae","partner_phone":"+971529876543","partner_company":"Bridgestone Real Estate"}}
+{"time":"2026-07-31T11:29:48+00:00","ip":"111.125.197.61","form":"5099fe1","fields":{"home_full_name":"Rehman Shoaib","home_email":"admin@gmail.com","home_phone":"+918400438136","home_company":"Valunxt Capital"}}

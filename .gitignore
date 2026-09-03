@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+data/form-submissions.log
+data/form-errors.log
+
+# The admin panel writes these; they are deployment state, not source.
+public/sitemap.xml.bak

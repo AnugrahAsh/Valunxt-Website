@@ -1,0 +1,89 @@
+# Core PHP site — pretty URLs served by real directories + index.php.
+Options -Indexes
+DirectoryIndex index.php index.html
+
+# Serve this site's own branded 404 page.
+ErrorDocument 404 /404/
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# 301 redirects.
+#
+# These are mod_rewrite rules with directory-relative patterns rather than
+# RedirectMatch with an absolute prefix. The previous version hard-coded a
+# "/valunxt-capital/" mount point, so once the site moved to the domain root
+# every rule here stopped matching and the URLs they were meant to rescue
+# started returning 404s again. Relative patterns match wherever the site is
+# mounted, which is the same assumption config.php's BASE detection makes.
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # The retired captures of the old WordPress build are not public.
+    RewriteRule ^_retired(/.*)?$ - [R=404,L]
+    RewriteRule ^_wp-source(/.*)?$ - [R=404,L]
+
+    # ---- Country editions -------------------------------------------------
+    # The site is published per market: /en-in/… (India) and /en-ae/… (UAE).
+    # Only pages that genuinely differ get their own directory under the region
+    # folder — /en-in/ and /en-ae/ hold their own home page, for instance. Every
+    # other URL falls back to the single shared page underneath, so
+    # /en-ae/services/ is answered by /services/index.php while the URL (and
+    # therefore REGION, which is read from the URL) still says UAE.
+    #
+    # The two conditions are what makes it a *fallback*: if the region-specific
+    # directory or file exists, it answers and this rule never fires. Give any
+    # page a market-specific version simply by creating it under /en-xx/.
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
+    RewriteRule ^(?:en-in|en-ae)/(.+)$ $1 [L]
+
+    # ---- Group company slugs renamed 2026-08-04 to match the company ------
+    # Was: audience-type slugs that did not correspond to the company shown.
+    RewriteRule ^our-group/individuals-and-families(/.*)?$ our-group/valunxt-corporate-services/ [R=301,L]
+    RewriteRule ^our-group/entrepreneurs-and-business-owners(/.*)?$ our-group/reliant-surveyors/ [R=301,L]
+    RewriteRule ^our-group/financial-advisers(/.*)?$ our-group/houzzhunt/ [R=301,L]
+    RewriteRule ^our-group/special-industries(/.*)?$ our-group/houzzhunt-mortgage/ [R=301,L]
+
+    # ---- Template/demo posts removed 2026-08-04 (these URLs 404'd) --------
+    RewriteRule ^2025(/.*)?$ blogs/ [R=301,L]
+
+    # ---- Real Estate service page: slug now matches its H1 ----------------
+    RewriteRule ^services/real-estate-wealth-advisory(/.*)?$ services/real-estate-investment-advisory/ [R=301,L]
+
+    # ---- Content restructure ---------------------------------------------
+    RewriteRule ^accounting-tax-audit-cpa(/.*)?$ our-group/ [R=301,L]
+    RewriteRule ^services/business-consulting(/.*)?$ services/real-estate-investment-advisory/ [R=301,L]
+    RewriteRule ^services/business-strategy(/.*)?$ services/real-estate-investment-advisory/ [R=301,L]
+    RewriteRule ^services/marketing-sales-retention(/.*)?$ services/capital-advisory/ [R=301,L]
+    RewriteRule ^services/tax-planning(/.*)?$ services/capital-advisory/ [R=301,L]
+    RewriteRule ^services/tax-preparation(/.*)?$ services/capital-advisory/ [R=301,L]
+    RewriteRule ^services/operations-management(/.*)?$ services/research-intelligence/ [R=301,L]
+    RewriteRule ^services/talent-acquisition(/.*)?$ services/technology-ai/ [R=301,L]
+    RewriteRule ^services/accounting(/.*)?$ services/ [R=301,L]
+
+    # ---- Pages that now exist for real ------------------------------------
+    RewriteRule ^about/team(/.*)?$ about/leadership/ [R=301,L]
+    RewriteRule ^about/testimonials(/.*)?$ clients/ [R=301,L]
+    RewriteRule ^about/press-release(/.*)?$ blogs/ [R=301,L]
+    RewriteRule ^case-studies(/.*)?$ track-record/ [R=301,L]
+
+    RewriteRule ^about/careers/(associate-consultant|consultant-remuneration-total-rewards|consulting-team-organizational-strategy|intern-consulting-operations|intern-kfi-outcomes-data-analytics)(/.*)?$ about/careers/ [R=301,L]
+    RewriteRule ^worksheets(/.*)?$ blogs/ [R=301,L]
+    RewriteRule ^landing-page(/.*)?$ / [R=301,L]
+    RewriteRule ^tag(/.*)?$ blogs/ [R=301,L]
+
+    # ---- Blog listing moved to /blogs/ 2026-07-27 -------------------------
+    RewriteRule ^blog(/.*)?$ blogs/ [R=301,L]
+    # ---- Category taxonomy removed 2026-07-27 -----------------------------
+    RewriteRule ^category(/.*)?$ blogs/ [R=301,L]
+</IfModule>
