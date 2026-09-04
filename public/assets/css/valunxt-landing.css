@@ -1,0 +1,824 @@
+/* ==========================================================================
+   VALUNXT Capital — landing-page feature blocks (2026-09)
+
+   Four additions to the home page, all additive: nothing here overrides a
+   selector that valunxt-brand.css or the Elementor cascade already owns, so
+   the rest of the page renders exactly as before. Loaded after
+   valunxt-brand.css and reusing its tokens (--vxn-blue, --vxn-violet, …).
+
+     1. .vxn-trio    three feature cards under "Who We Are"
+     2. .vxn-klay    the x motif and hover states added to the services band
+     3. .vxn-whyus   the glass banner
+     4. .vxn-proof   the proof band that follows the services section
+
+   The recurring device is the wordmark's "x" used as a window onto a
+   photograph — see components/brand/LogoX.tsx for why the glyph is taken from
+   the logo outline rather than drawn.
+   ========================================================================== */
+
+:root {
+  /* The card gradient shared by the trio, the service panels and the proof
+     band. One definition so the three read as the same family. */
+  --vxn-grad-card: linear-gradient(150deg, #1B3FA8 0%, #3C22C4 46%, #9C00DD 100%);
+  --vxn-grad-card-hi: linear-gradient(150deg, #234CC4 0%, #4A2BE0 46%, #B01DF2 100%);
+  --vxn-ease: cubic-bezier(.22, .61, .36, 1);
+}
+
+/* --------------------------------------------------------------------------
+   The x window
+
+   A photograph seen through the letterform. The <img> is clipped by the shared
+   objectBoundingBox clipPath (LogoXClipDefs), which stretches to whatever box
+   it lands in — so the span is held square and the image inside uses
+   object-fit to fill it without distorting the glyph.
+   -------------------------------------------------------------------------- */
+.vxn-xwin {
+  display: block;
+  position: relative;
+  aspect-ratio: 70.52 / 62.83;
+  /* The glyph's own proportions, so the x is never stretched. */
+  width: 100%;
+}
+
+.vxn-xwin__img {
+  display: block;
+  width: 100%;
+  /* `.elementor img { height: auto }` is 0,1,1 and outranks a lone class, so
+     every height this sheet sets has to be stated outright. */
+  height: 100% !important;
+  object-fit: cover;
+  border-radius: 0 !important;
+  transition: transform 1.1s var(--vxn-ease), filter .6s ease;
+}
+
+.vxn-x-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   1. .vxn-trio — the three cards under "Who We Are"
+
+   Sits below the existing intro and the four-icon grid; neither is touched.
+   The middle card is the gradient one carrying the x window, matching the
+   reference; the outer two are cream cards with a plain photograph.
+   -------------------------------------------------------------------------- */
+.vxn-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin: 46px 0 0;
+}
+
+.vxn-trio__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 468px;
+  padding: 24px 24px 26px;
+  border-radius: 18px;
+  background: var(--vxn-card);
+  border: 1px solid var(--vxn-line);
+  box-shadow: 0 1px 2px rgba(11, 44, 86, .04);
+  text-decoration: none !important;
+  overflow: hidden;
+  transition: transform .55s var(--vxn-ease), box-shadow .55s var(--vxn-ease),
+    border-color .45s ease;
+}
+
+.vxn-trio__card:hover,
+.vxn-trio__card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 44px rgba(11, 44, 86, .14);
+  border-color: rgba(0, 83, 183, .28);
+}
+
+.vxn-trio__card:focus-visible {
+  outline: 2px solid var(--vxn-blue);
+  outline-offset: 3px;
+}
+
+/* ---- The eyebrow pill and the corner arrow share a row ---- */
+.vxn-trio__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.vxn-trio__tag {
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid var(--vxn-line);
+  color: var(--vxn-ink);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.vxn-trio__go {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid var(--vxn-line);
+  color: var(--vxn-blue);
+  transition: transform .45s var(--vxn-ease), background-color .35s ease,
+    color .35s ease;
+}
+
+.vxn-trio__go svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
+.vxn-trio__card:hover .vxn-trio__go {
+  transform: translate(3px, -3px);
+  background: var(--vxn-blue);
+  color: #FFFFFF;
+}
+
+.vxn-trio__title {
+  margin: 0;
+  color: var(--vxn-blue) !important;
+  font-size: clamp(19px, 1.55vw, 23px) !important;
+  font-weight: 600 !important;
+  line-height: 1.32 !important;
+  letter-spacing: -.01em;
+}
+
+/* ---- The photograph on the two cream cards ---- */
+.vxn-trio__media {
+  margin-top: auto;
+  padding-top: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.vxn-trio__media img {
+  display: block;
+  width: 100%;
+  height: auto !important;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 1.1s var(--vxn-ease);
+}
+
+.vxn-trio__card:hover .vxn-trio__media img {
+  transform: scale(1.05);
+}
+
+/* ---- The gradient middle card ---- */
+.vxn-trio__card--brand {
+  background: var(--vxn-grad-card);
+  border-color: transparent;
+  color: #FFFFFF;
+}
+
+.vxn-trio__card--brand:hover {
+  background: var(--vxn-grad-card-hi);
+  border-color: transparent;
+  box-shadow: 0 20px 50px rgba(60, 34, 196, .34);
+}
+
+.vxn-trio__card--brand .vxn-trio__tag {
+  background: rgba(255, 255, 255, .14);
+  border-color: rgba(255, 255, 255, .34);
+  color: #FFFFFF;
+}
+
+.vxn-trio__card--brand .vxn-trio__go {
+  background: #FFFFFF;
+  border-color: transparent;
+  color: var(--vxn-blue);
+}
+
+.vxn-trio__card--brand:hover .vxn-trio__go {
+  background: #FFFFFF;
+  color: var(--vxn-violet);
+}
+
+.vxn-trio__card--brand .vxn-trio__title {
+  color: #FFFFFF !important;
+}
+
+/* The x window is the card's centrepiece: it takes the space the cream cards
+   give their heading, and the heading drops to the foot. */
+.vxn-trio__x {
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+  padding: 6px 0 26px;
+}
+
+.vxn-trio__x .vxn-xwin {
+  width: min(64%, 250px);
+}
+
+.vxn-trio__card--brand:hover .vxn-xwin__img {
+  transform: scale(1.08);
+}
+
+.vxn-trio__card--brand .vxn-trio__title {
+  margin-top: auto;
+}
+
+/* The UAE home page hangs the trio inside .vxn-plat__inner, which is a two
+   column grid above 1024px — without this the cards would drop into one of
+   those columns instead of running the full width of the section. */
+.vxn-trio-span {
+  grid-column: 1 / -1;
+}
+
+/* --------------------------------------------------------------------------
+   2. The services band — x motif, index numbers, hover
+
+   Additive only: .vxn-klay's layout, sizing and accordion behaviour are
+   untouched in valunxt-brand.css. Collapsed panels gain a ghosted x and an
+   index; the open panel keeps exactly the composition it had.
+   -------------------------------------------------------------------------- */
+.vxn-klay__panel {
+  /* Was not set before; the accordion transitions flex-grow only. */
+  transition: flex-grow .8s cubic-bezier(.4, 0, .2, 1),
+    background-color .6s ease;
+}
+
+/* The x sits behind the vertical label on a collapsed panel and fades out as
+   the panel opens, so it never competes with the copy. */
+.vxn-klay__x {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  z-index: 0;
+  width: min(58%, 132px);
+  transform: translate(-50%, -50%) scale(.94);
+  color: rgba(255, 255, 255, .16);
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity .6s var(--vxn-ease), transform .8s var(--vxn-ease),
+    color .6s ease;
+}
+
+.vxn-klay__x svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.vxn-klay__panel:hover .vxn-klay__x {
+  color: rgba(255, 255, 255, .3);
+  transform: translate(-50%, -50%) scale(1.04);
+}
+
+.vxn-klay__panel.is-active .vxn-klay__x {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+/* A collapsed panel lifts slightly under the pointer — the only cue the band
+   had before was the label colour. */
+.vxn-klay__panel:not(.is-active):hover .vxn-klay__bg img {
+  opacity: .32;
+  filter: grayscale(.3) brightness(.9);
+}
+
+.vxn-klay__panel:not(.is-active):hover .vxn-klay__label {
+  transform: translateX(-50%) rotate(180deg) translateY(6px);
+}
+
+.vxn-klay__label {
+  transition: opacity .45s ease, transform .55s var(--vxn-ease);
+}
+
+/* The index, top-left of every panel. */
+.vxn-klay__num {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .28);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  transition: left .8s cubic-bezier(.4, 0, .2, 1),
+    transform .8s cubic-bezier(.4, 0, .2, 1),
+    background-color .5s ease;
+}
+
+/* Open, the index moves out of the centre and aligns with the copy. */
+.vxn-klay__panel.is-active .vxn-klay__num {
+  left: clamp(28px, 4.5vw, 72px);
+  transform: translateX(0);
+  background: rgba(255, 255, 255, .2);
+}
+
+.vxn-klay__panel:hover .vxn-klay__num {
+  background: rgba(255, 255, 255, .24);
+}
+
+/* --------------------------------------------------------------------------
+   3. .vxn-whyus — the glass banner
+
+   A full-bleed photograph with a frosted panel over its left third. Runs
+   alongside the existing "Every Investment Decision Counts" band, which is
+   unchanged.
+   -------------------------------------------------------------------------- */
+.vxn-whyus {
+  padding: clamp(40px, 5vw, 74px) clamp(16px, 4vw, 48px);
+  background: var(--vxn-cream);
+}
+
+.vxn-whyus__frame {
+  position: relative;
+  max-width: 1520px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.vxn-whyus__media {
+  display: block;
+  width: 100%;
+  height: clamp(420px, 42vw, 560px) !important;
+  object-fit: cover;
+  border-radius: 20px !important;
+}
+
+/* Keeps the frosted panel legible over a bright photograph. */
+.vxn-whyus__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+      rgba(10, 24, 44, .52) 0%,
+      rgba(10, 24, 44, .22) 46%,
+      rgba(10, 24, 44, 0) 72%);
+  pointer-events: none;
+}
+
+.vxn-whyus__panel {
+  position: absolute;
+  z-index: 1;
+  left: clamp(18px, 2.6vw, 42px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(440px, 42%);
+  padding: 26px 28px 30px;
+  border-radius: 18px;
+
+  /* The glass. -webkit- included: Safari still needs it for backdrop-filter. */
+  background: rgba(246, 244, 239, .58);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, .5);
+  box-shadow: 0 20px 50px rgba(10, 24, 44, .22);
+}
+
+/* Where backdrop-filter is unavailable the panel would sit as flat translucent
+   wash over the photo and the copy would be unreadable — so make it opaque. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vxn-whyus__panel {
+    background: rgba(246, 244, 239, .95);
+  }
+}
+
+.vxn-whyus__tag {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: var(--vxn-ink);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.vxn-whyus__spark {
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--vxn-grad-card);
+  color: #FFFFFF;
+}
+
+.vxn-whyus__spark svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+}
+
+.vxn-whyus__title {
+  margin: 0 0 14px;
+  color: var(--vxn-blue) !important;
+  font-size: clamp(26px, 2.4vw, 36px) !important;
+  font-weight: 600 !important;
+  line-height: 1.22 !important;
+  letter-spacing: -.015em;
+}
+
+/* The highlighted clause, as a gradient-filled block in the reference. */
+.vxn-whyus__mark {
+  display: inline-block;
+  padding: 2px 10px 4px;
+  border-radius: 6px;
+  background: var(--vxn-grad-card);
+  color: #FFFFFF !important;
+}
+
+.vxn-whyus__copy {
+  margin: 0 0 22px;
+  color: var(--vxn-text);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.vxn-whyus__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 26px;
+  border-radius: 8px;
+  background: var(--vxn-blue);
+  color: #FFFFFF !important;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none !important;
+  transition: background-color .35s ease, transform .35s var(--vxn-ease);
+}
+
+.vxn-whyus__cta:hover {
+  background: var(--vxn-blue-dark);
+  transform: translateY(-2px);
+}
+
+.vxn-whyus__cta i {
+  font-size: 13px;
+  transition: transform .35s ease;
+}
+
+.vxn-whyus__cta:hover i {
+  transform: translateX(4px);
+}
+
+/* --------------------------------------------------------------------------
+   4. .vxn-proof — the band after the services section
+
+   Two columns: a photograph carrying a frosted quote panel, and a stack of
+   compact gradient cards. The reference's cards are half the page tall; these
+   are deliberately smaller so more of them fit, per the brief.
+   -------------------------------------------------------------------------- */
+.vxn-proof {
+  padding: clamp(48px, 6vw, 92px) clamp(16px, 4vw, 48px);
+  background: var(--vxn-cream);
+}
+
+.vxn-proof__inner {
+  max-width: 1520px;
+  margin: 0 auto;
+}
+
+.vxn-proof__head {
+  max-width: 60ch;
+  margin: 0 0 34px;
+}
+
+.vxn-proof__tag {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--vxn-ink);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.vxn-proof__title {
+  margin: 0;
+  color: var(--vxn-ink) !important;
+  font-family: "Forum", serif !important;
+  font-weight: 400 !important;
+  font-size: clamp(30px, 3vw, 46px) !important;
+  line-height: 1.16 !important;
+}
+
+.vxn-proof__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+/* ---- Left: photograph with the frosted panel ---- */
+.vxn-proof__figure {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.vxn-proof__figure img {
+  display: block;
+  width: 100%;
+  height: 100% !important;
+  min-height: 400px;
+  object-fit: cover;
+  border-radius: 18px !important;
+}
+
+.vxn-proof__quote {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+  padding: 22px 24px 20px;
+  border-radius: 14px;
+  background: rgba(246, 244, 239, .6);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, .5);
+  box-shadow: 0 16px 40px rgba(10, 24, 44, .2);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vxn-proof__quote {
+    background: rgba(246, 244, 239, .95);
+  }
+}
+
+.vxn-proof__mark {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--vxn-blue);
+  font-family: "Forum", serif;
+  font-size: 30px;
+  line-height: .6;
+}
+
+.vxn-proof__text {
+  margin: 0 0 16px;
+  color: var(--vxn-ink);
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.6;
+}
+
+.vxn-proof__by {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vxn-proof__badge {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--vxn-grad-card);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.vxn-proof__who {
+  display: block;
+  margin: 0;
+  color: var(--vxn-blue);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.vxn-proof__where {
+  display: block;
+  margin: 0;
+  color: var(--vxn-muted);
+  font-size: 11.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* ---- Right: the compact gradient cards ---- */
+.vxn-proof__cards {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.vxn-proof__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 26px 26px;
+  border-radius: 18px;
+  background: var(--vxn-grad-card);
+  color: #FFFFFF;
+  overflow: hidden;
+  text-decoration: none !important;
+  transition: transform .55s var(--vxn-ease), box-shadow .55s var(--vxn-ease),
+    background-image .55s ease;
+}
+
+.vxn-proof__card:hover,
+.vxn-proof__card:focus-visible {
+  transform: translateY(-5px);
+  background-image: var(--vxn-grad-card-hi);
+  box-shadow: 0 20px 48px rgba(60, 34, 196, .3);
+}
+
+.vxn-proof__card:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 3px;
+}
+
+/* A ghosted x, bottom-right, so the cards carry the same motif as the trio. */
+.vxn-proof__card .vxn-proof__x {
+  position: absolute;
+  right: -22px;
+  bottom: -26px;
+  width: 148px;
+  color: rgba(255, 255, 255, .1);
+  pointer-events: none;
+  transition: transform .8s var(--vxn-ease), color .6s ease;
+}
+
+.vxn-proof__card .vxn-proof__x svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.vxn-proof__card:hover .vxn-proof__x {
+  transform: scale(1.1) rotate(-4deg);
+  color: rgba(255, 255, 255, .16);
+}
+
+.vxn-proof__card .vxn-trio__tag {
+  background: rgba(255, 255, 255, .14);
+  border-color: rgba(255, 255, 255, .34);
+  color: #FFFFFF;
+}
+
+.vxn-proof__card .vxn-trio__go {
+  background: #FFFFFF;
+  border-color: transparent;
+  color: var(--vxn-blue);
+}
+
+.vxn-proof__card:hover .vxn-trio__go {
+  transform: translate(3px, -3px);
+  background: #FFFFFF;
+  color: var(--vxn-violet);
+}
+
+.vxn-proof__stat {
+  position: relative;
+  z-index: 1;
+  margin: 14px 0 6px;
+  font-family: "Forum", serif;
+  font-size: clamp(34px, 3.4vw, 52px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.01em;
+}
+
+.vxn-proof__label {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: 34ch;
+  color: rgba(255, 255, 255, .84);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.vxn-proof__basis {
+  position: relative;
+  z-index: 1;
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, .6);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+
+  .vxn-trio {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .vxn-trio__card {
+    min-height: 0;
+  }
+
+  .vxn-trio__x .vxn-xwin {
+    width: min(50%, 210px);
+  }
+
+  .vxn-whyus__panel {
+    position: static;
+    transform: none;
+    width: auto;
+    margin: -70px 16px 0;
+  }
+
+  .vxn-whyus__frame {
+    overflow: visible;
+  }
+
+  .vxn-whyus__frame::after {
+    border-radius: 20px;
+  }
+
+  .vxn-whyus__media {
+    height: clamp(300px, 46vw, 420px);
+  }
+
+  .vxn-proof__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* The x is drawn centred on a tall collapsed panel; stacked panels are wide
+     and short, so it would sit over the label. */
+  .vxn-klay__x,
+  .vxn-klay__num {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .vxn-whyus__panel {
+    padding: 22px 20px 24px;
+  }
+
+  .vxn-proof__quote {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    padding: 18px 18px 16px;
+  }
+
+  .vxn-proof__cards {
+    grid-template-rows: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .vxn-trio__card,
+  .vxn-trio__go,
+  .vxn-trio__media img,
+  .vxn-xwin__img,
+  .vxn-klay__x,
+  .vxn-klay__num,
+  .vxn-whyus__cta,
+  .vxn-proof__card,
+  .vxn-proof__x {
+    transition: none !important;
+  }
+
+  .vxn-trio__card:hover,
+  .vxn-proof__card:hover {
+    transform: none;
+  }
+}

@@ -9,10 +9,17 @@ import { rimg } from '@/lib/region-assets';
 import { BASE, rurl } from '@/lib/region';
 import { vxnMarkets, vxnOffice } from '@/lib/site-data';
 import type { PageConfig } from '@/lib/page-config';
+import { LogoXClipDefs, LogoXGlyph } from '@/components/brand/LogoX';
+import WhoWeAreTrio from '@/components/sections/WhoWeAreTrio';
+import WhyUsBanner from '@/components/sections/WhyUsBanner';
+import ProofBand from '@/components/sections/ProofBand';
 
 export default function HomeInBody({ page, region }: { page: PageConfig; region: string }) {
   return (
     <>
+      {/* One definition of the wordmark's x, referenced by every card that
+          shows a photograph through it. */}
+      <LogoXClipDefs />
 
       <style id="home-icon-premium" dangerouslySetInnerHTML={{ __html: `
       	/* Premium uniform icon treatment: a 40px precision glyph centred in a
@@ -405,6 +412,9 @@ export default function HomeInBody({ page, region }: { page: PageConfig; region:
       												</div>
       											</div>
       										</div>
+      										{/* Three feature cards close the section; the intro and the
+      										    four-icon grid above are unchanged. */}
+      										<WhoWeAreTrio region={region} />
       								</div>
       							</div>
       						</div>
@@ -433,6 +443,8 @@ export default function HomeInBody({ page, region }: { page: PageConfig; region:
       							<nav className="vxn-klay" aria-label="Our services">
       								<a className="vxn-klay__panel is-active" href={rurl(region, '/services/real-estate-investment-advisory/')}>
       									<div className="vxn-klay__bg"><img src={rimg(region, 'homepage/research-and-investment-advisory.webp')} alt="Real Estate Investment Advisory" loading="lazy" /></div>
+      									<span className="vxn-klay__num" aria-hidden="true">01</span>
+      									<span className="vxn-klay__x" aria-hidden="true"><LogoXGlyph /></span>
       									<span className="vxn-klay__label" aria-hidden="true">Real Estate Advisory</span>
       									<div className="vxn-klay__content">
       										<h3 className="vxn-klay__title">Real Estate Investment Advisory</h3>
@@ -442,6 +454,8 @@ export default function HomeInBody({ page, region }: { page: PageConfig; region:
       								</a>
       								<a className="vxn-klay__panel" href={rurl(region, '/services/capital-advisory/')}>
       									<div className="vxn-klay__bg"><img src={rimg(region, 'homepage/capital-advisory.webp')} alt="Capital Advisory" loading="lazy" /></div>
+      									<span className="vxn-klay__num" aria-hidden="true">02</span>
+      									<span className="vxn-klay__x" aria-hidden="true"><LogoXGlyph /></span>
       									<span className="vxn-klay__label" aria-hidden="true">Capital Advisory</span>
       									<div className="vxn-klay__content">
       										<h3 className="vxn-klay__title">Capital Advisory</h3>
@@ -451,6 +465,8 @@ export default function HomeInBody({ page, region }: { page: PageConfig; region:
       								</a>
       								<a className="vxn-klay__panel" href={rurl(region, '/services/research-intelligence/')}>
       									<div className="vxn-klay__bg"><img src={rimg(region, 'homepage/research-and-intellegance.webp')} alt="Research &amp; Intelligence" loading="lazy" /></div>
+      									<span className="vxn-klay__num" aria-hidden="true">03</span>
+      									<span className="vxn-klay__x" aria-hidden="true"><LogoXGlyph /></span>
       									<span className="vxn-klay__label" aria-hidden="true">Research &amp; Intelligence</span>
       									<div className="vxn-klay__content">
       										<h3 className="vxn-klay__title">Research &amp; Intelligence</h3>
@@ -460,6 +476,8 @@ export default function HomeInBody({ page, region }: { page: PageConfig; region:
       								</a>
       								<a className="vxn-klay__panel" href={rurl(region, '/services/technology-ai/')}>
       									<div className="vxn-klay__bg"><img src={rimg(region, 'homepage/technology-and-ai.webp')} alt="Technology &amp; AI" loading="lazy" /></div>
+      									<span className="vxn-klay__num" aria-hidden="true">04</span>
+      									<span className="vxn-klay__x" aria-hidden="true"><LogoXGlyph /></span>
       									<span className="vxn-klay__label" aria-hidden="true">Technology &amp; AI</span>
       									<div className="vxn-klay__content">
       										<h3 className="vxn-klay__title">Technology &amp; AI</h3>
@@ -469,6 +487,8 @@ export default function HomeInBody({ page, region }: { page: PageConfig; region:
       								</a>
       							</nav>
       						</div>
+      						{/* Proof band — follows the services section. */}
+      						<ProofBand region={region} />
       						<div className="elementor-element elementor-element-ffe4657 e-flex e-con-boxed e-con e-parent" data-id="ffe4657" data-element_type="container" data-e-type="container">
       							<div className="e-con-inner">
       								<div className="elementor-element elementor-element-54101de e-con-full e-flex e-con e-child" data-id="54101de" data-element_type="container" data-e-type="container">
@@ -726,6 +746,8 @@ export default function HomeInBody({ page, region }: { page: PageConfig; region:
       								</div>
       							</div>
       						</div>
+      						{/* Runs with the band above, not instead of it. */}
+      						<WhyUsBanner region={region} />
       						<div className="elementor-element elementor-element-8098fc0 e-flex e-con-boxed e-con e-parent" data-id="8098fc0" data-element_type="container" data-e-type="container">
       							<div className="e-con-inner">
       								<div className="elementor-element elementor-element-9e6338e e-con-full e-flex e-con e-child" data-id="9e6338e" data-element_type="container" data-e-type="container">

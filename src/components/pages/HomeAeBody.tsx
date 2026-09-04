@@ -10,6 +10,10 @@ import { BASE, rurl, vxnRegionData, vxnRegionPhone, vxnServices } from '@/lib/re
 import Html from '@/components/Html';
 import ClientScript from '@/components/ClientScript';
 import type { PageConfig } from '@/lib/page-config';
+import { LogoXClipDefs, LogoXGlyph } from '@/components/brand/LogoX';
+import WhoWeAreTrio from '@/components/sections/WhoWeAreTrio';
+import WhyUsBanner from '@/components/sections/WhyUsBanner';
+import ProofBand from '@/components/sections/ProofBand';
 
 /**
  * "Who We Are — An Integrated Platform of Expertise".
@@ -78,6 +82,9 @@ export default function HomeAeBody({ page, region }: { page: PageConfig; region:
 
   return (
     <>
+      {/* One definition of the wordmark's x, referenced by every card that
+          shows a photograph through it. */}
+      <LogoXClipDefs />
 
       <style id="home-icon-premium" dangerouslySetInnerHTML={{ __html: `
       	/* Premium uniform icon treatment: a 40px precision glyph centred in a
@@ -688,6 +695,11 @@ export default function HomeAeBody({ page, region }: { page: PageConfig; region:
       											</div>
       										))}
       									</div>
+      									{/* Three feature cards close the section; the lede and the
+      									    capability grid above are unchanged. */}
+      									<div className="vxn-trio-span">
+      										<WhoWeAreTrio region={region} />
+      									</div>
 
       								</div>
       							</section>
@@ -720,6 +732,8 @@ export default function HomeAeBody({ page, region }: { page: PageConfig; region:
       									<a className={`vxn-klay__panel${i === 0 ? ' is-active' : ''}`} href={rurl(region, sv.href)} key={sv.title}>
       										{/* eslint-disable-next-line @next/next/no-img-element */}
       										<div className="vxn-klay__bg"><img src={rimg(region, sv.img.replace('/assets/content/uploads/', '').replace(/^\/+/, ''))} alt={decodeEntities(sv.title)} loading="lazy" /></div>
+      										<span className="vxn-klay__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+      										<span className="vxn-klay__x" aria-hidden="true"><LogoXGlyph /></span>
       										<Html as="span" className="vxn-klay__label" aria-hidden="true" html={sv.short} />
       										<div className="vxn-klay__content">
       											<Html as="h3" className="vxn-klay__title" html={sv.title} />
@@ -730,6 +744,8 @@ export default function HomeAeBody({ page, region }: { page: PageConfig; region:
       								))}
       							</nav>
       						</div>
+      						{/* Proof band — follows the services section. */}
+      						<ProofBand region={region} />
       						<div className="elementor-element elementor-element-ffe4657 e-flex e-con-boxed e-con e-parent" data-id="ffe4657" data-element_type="container" data-e-type="container">
       							<div className="e-con-inner">
       								<div className="elementor-element elementor-element-54101de e-con-full e-flex e-con e-child" data-id="54101de" data-element_type="container" data-e-type="container">
@@ -987,6 +1003,8 @@ export default function HomeAeBody({ page, region }: { page: PageConfig; region:
       								</div>
       							</div>
       						</div>
+      						{/* Runs with the band above, not instead of it. */}
+      						<WhyUsBanner region={region} />
       {/* "Our Vision". The three pillars become a vertical track down the left,
           with the vision statement standing alone on the right. */}
       							<section className="vxn-vision">
